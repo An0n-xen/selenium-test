@@ -2,19 +2,24 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from chromedriver_py import binary_path
 
 
 def google_search(search_term):
     # Set up Chrome options
     chrome_options = Options()
-    chrome_options.add_argument("--headless")  # Run in headless mode (optional)
+    chrome_options.add_argument("--headless")  # Run in headless mode
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-dev-shm-usage")
 
+    # Set up ChromeDriver service
+    service = Service(executable_path=binary_path)
+
     # Initialize the WebDriver
-    driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
         # Navigate to Google
@@ -50,5 +55,5 @@ def google_search(search_term):
 
 
 if __name__ == "__main__":
-    search_term = "AI tools site;www.crushbase.com"
+    search_term = "Selenium with Python"
     google_search(search_term)
