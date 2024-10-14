@@ -19,8 +19,5 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Configure Docker to use Google Cloud credentials
-        run: gcloud auth configure-docker us-east1-docker.pkg.dev
-
       - name: Build Docker image
         run: docker build -t $IMAGE .
