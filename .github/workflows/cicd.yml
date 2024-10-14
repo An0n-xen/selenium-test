@@ -1,0 +1,26 @@
+name: CICD
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE: "selenium-test"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Configure Docker to use Google Cloud credentials
+        run: gcloud auth configure-docker us-east1-docker.pkg.dev
+
+      - name: Build Docker image
+        run: docker build -t $IMAGE .
